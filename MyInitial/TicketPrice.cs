@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace Ticketing
@@ -10,13 +11,15 @@ namespace Ticketing
         private int section;
         private int quantity;
         private bool discount;
+        private bool childDiscount;
         private decimal amountDue;
         private decimal mPrice;
 
         const decimal mdecBalcony = 35.5m;
         const decimal mdecGeneral = 28.75m;
         const decimal mdecBox = 62.0m;
-        const decimal mdecDiscount = 5.0m; 
+        const decimal mdecDiscount = 5.0m;
+        const decimal mdecChildDiscount = 10.0m;
 
         private int Section
         {
@@ -43,7 +46,7 @@ namespace Ticketing
         }
 
     // Constructor for TcicketPrice
-    public TicketPrice(int section, int quantity, bool discount)
+    public TicketPrice(int section, int quantity, bool discount, bool childDicsount)
     {
         Section = section;
         Quantity = quantity;
@@ -70,6 +73,8 @@ namespace Ticketing
          { mPrice -= mdecDiscount; }
 
          AmountDue = mPrice * quantity;
+         if (childDiscount)
+            { mPrice -= mdecChildDiscount; }
 
      }
     }
